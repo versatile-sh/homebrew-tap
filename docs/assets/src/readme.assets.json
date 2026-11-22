@@ -1,0 +1,35 @@
+{
+  "name": "homebrew-tap",
+  "pitch": ["Versatile tools through ", "brew install", "."],
+  "sub": "One Homebrew tap for every Versatile release, written by the release itself.",
+  "badge": "MIT",
+  "tags": ["casks", "written by releases", "pinned checksums"],
+  "heroLabel": "homebrew-tap: Versatile tools through brew install. One Homebrew tap for every Versatile release, written by the release itself.",
+  "sections": [
+    ["what-it-is", "overview", "What it ", "is"],
+    ["how-it-works", "overview", "How it ", "works"],
+    ["quick-start", "start here", "Quick ", "start"],
+    ["usage", "use", "The ", "casks"],
+    ["configuration", "configure", "Publishing a ", "project"],
+    ["development-and-checks", "develop", "Development and ", "checks"],
+    ["security-notes", "project", "Security ", "notes"],
+    ["contributing", "project", "", "Contributing"],
+    ["license", "project", "", "License"]
+  ],
+  "diagrams": [
+    {
+      "slug": "release",
+      "kind": "pipeline",
+      "why": "A cask reaches a user through one linear chain, from a project's tag to brew install, so a pipeline shows it.",
+      "label": "How a cask reaches you. A project pushes a version tag. Its release workflow runs GoReleaser, which builds the archives, publishes the GitHub release and commits the cask with the archive URLs and SHA-256 checksums to Casks in this tap. brew install reads the cask, downloads the archive and checks its checksum.",
+      "gap": 64,
+      "cards": [
+        { "title": "tag", "sub": "project", "rows": ["v1.2.3", ["git push", "muted"]] },
+        { "title": "release", "sub": "GoReleaser", "rows": ["archives", "checksums", ["GitHub release", "muted"]] },
+        { "title": "tap", "sub": "Casks/", "rows": [["<name>.rb", "accent"], "url + sha256", ["one commit", "muted"]] },
+        { "title": "brew", "sub": "install", "rows": ["download", ["verify sha256", "accent"], "install"] }
+      ],
+      "arrows": [{ "label": "" }, { "label": "cask", "accent": true }, { "label": "" }]
+    }
+  ]
+}
