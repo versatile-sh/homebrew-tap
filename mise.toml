@@ -1,0 +1,24 @@
+[tools]
+node = "24.22.0"
+
+[tasks.semgrep]
+description = "Scan this repository with p/secrets and the shared Versatile rules"
+run = """
+semgrep scan --metrics=off --disable-version-check --error --severity WARNING --severity ERROR \
+  --config p/secrets \
+  --config https://raw.githubusercontent.com/versatile-sh/semgrep-rules/v0.2.0/rules/versatile.yml
+"""
+
+[tasks.lint]
+description = "README lint"
+dir = "docs/assets/src"
+run = ["npm ci --silent", "npm run --silent lint"]
+
+[tasks.images]
+description = "Regenerate the README images in docs/assets"
+dir = "docs/assets/src"
+run = ["npm ci", "node build-banners.mjs"]
+
+[tasks.check]
+description = "Local merge validation: Semgrep and the README lint"
+run = [{ task = "semgrep" }, { task = "lint" }]
